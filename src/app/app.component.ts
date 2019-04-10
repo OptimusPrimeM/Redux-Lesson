@@ -1,4 +1,8 @@
+import { NgRedux } from '@angular-redux/store';
 import { Component } from '@angular/core';
+import { IAppState } from './store';
+import { INCREAMENT } from './actions';
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +10,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Redux-Lesson';
+  private _counter = 0;
+
+  constructor(private ngRedux: NgRedux<IAppState>) { }
+
+  /*Typical angular increment
+  increment() {
+    this._counter += 1;
+  }
+  */
+
+  increment() {
+    this.ngRedux.dispatch({ type: INCREAMENT });
+  }
+
+  get counter() {
+    return this._counter;
+  }
 }
